@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Generating Numbers</title>
+<style>
+h1{
+text-align:center;
+color:blue;
+}
+#container{
+display:grid;
+gap:10px;
+grid-template-columns:repeat(8,1fr);
+}
+.number{
+padding:10px;
+text-align: center;
+background-color: grey;
+border: 1px solid  ;
+font-size: 20px;
+}
+.even{
+background-color:green
+}
+.odd{
+background-color:yellow
+}
+.prime{
+background-color:red
+}
+input[type="number"]{
+padding:10px;
+font-size:15px;
+margin-right:10px
+}
+button{
+padding:10px 15px;
+font-size:15px;
+cursor:pointer;
+background-color:white;
+}
+</style>
+</head>
+<body>
+<h1>NUMBER GENERATOR</h1>
+
+<input type="number" id="numberInput" placeholder="Enter a number" min="1">
+<button onclick="generateNumbers()">Generate Numbers</button>
+
+<div id='container'></div>
+<script>
+function isPrime(num) {
+if (num <= 1){
+return false;
+}
+for (let i = 2; i <= Math.sqrt(num); i++) { 
+if (num % i === 0) { 
+return false; 
+}
+}
+return true; 
+}
+function generateNumbers(){
+const container = document.getElementById('container');
+const input = document.getElementById('numberInput');
+const num = parseInt(input.value);
+container.innerHTML = '';
+if (isNaN(num) || num <= 0) {
+alert('Please enter a valid positive number');
+return;
+}
+
+for(let i=1;i<=num	;i++){
+const Number=document.createElement('div')
+Number.classList.add('number')
+Number.textContent=i
+if(isPrime(i)){
+Number.classList.add('prime')
+}else if(i%2===0){
+Number.classList.add('even')
+}else{
+Number.classList.add('odd')
+}
+container.appendChild(Number)
+}
+}
+</script>
+</body>
+</html>

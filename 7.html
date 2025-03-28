@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>Keyboard Event Listener</title>
+<style>
+body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+#keyinfo{
+padding:20px;
+font-size:20px;
+margin-top:20px;
+background-color:grey
+border:1px solid 
+display:inline-block
+</style>
+<body>
+<h1>Press any key on your keyboard!</h1>
+<p>Press any key and it will show the key and its corresponding code below.</p>
+<div id="keyinfo">Press a key....</div>
+<script>
+const keyinfo=document.getElementById("keyinfo")
+document.addEventListener('keydown',(e)=>{
+const keyPressed=e.key;
+const keyCode=e.keyCode;
+keyinfo.textContent=`You pressed:${keyPressed}(KeyCode:${keyCode})`
+})
+</script>
+</body>
+</html>
