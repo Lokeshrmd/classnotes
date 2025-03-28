@@ -96,3 +96,31 @@ const doSomething = callback => {
   console.log(value)
   }
   main() 
+
+
+
+  //closure function
+  function outerfunction(){
+    let count=2
+function plusOne(){
+  count++
+  return count
+}
+function minusOne(){
+  count--
+  return count
+}
+function powOne(){
+  count=count*count
+  return count
+}
+return{
+  plusOne:plusOne(),
+  minusOne:minusOne(),
+  powOne:powOne()
+}
+}
+const innerfunc=outerfunction()
+console.log(innerfunc.plusOne)
+console.log(innerfunc.minusOne)
+console.log(innerfunc.powOne)
