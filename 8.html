@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight on Other Planets</title>
+    <style>
+        body {
+            text-align:center;
+           background-color:black;
+        }
+        
+        .dot {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: white;
+            border-radius: 50%;
+            animation:shine 2s infinite, move 10s linear infinite;;
+        }        
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+                transform: translate(var(--x), var(--y));
+            }
+            100% {
+                opacity: 0.8;
+                transform: translate(var(--x), var(--y));
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color:white;
+        }
+        label, button {
+            margin: 10px;
+            display: inline;
+            color:white;
+            background-color: black;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+            color:white;
+        }
+
+         #planet-image {
+            width: 200px;
+            height: 200px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 100%;
+            object-fit:cover;
+        } 
+    </style>
+</head>
+<body>
+
+    <h1>Calculate Your Weight on Other Planets</h1>
+    
+    <label for="mass">Enter your mass (in kg):</label>
+    <input type="number" id="mass" placeholder="e.g., 70" required>
+
+    <label for="planet">Select a planet:</label>
+    <select id="planet">
+        <option value="Earth">Earth</option>
+        <option value="Mars">Mars</option>
+        <option value="Jupiter">Jupiter</option>
+        <option value="Venus">Venus</option>
+        <option value="Moon">Moon</option>
+        <option value="Saturn">Saturn</option>
+        <option value="Mercury">Mercury</option>
+        <option value="Uranus">Uranus</option>
+        <option value="Neptune">Neptune</option>
+    </select>
+
+    <button onclick="calculateWeight()">Calculate Weight</button>
+
+    <div class="output" id="output"></div>
+<img id="planet-image" src="" alt="Planet Image" style="display:none">
+
+    <script>
+        function getGravitationalAcceleration(planet) {
+            const gravityValues = {
+                Earth: 9.81,  
+                Mars: 3.71,
+                Jupiter: 24.79,
+                Venus: 8.87,
+                Moon: 1.625,
+                Saturn: 10.44,
+                Mercury: 3.7,
+                Uranus: 8.69,
+                Neptune: 11.15
+            }
+            return gravityValues[planet];
+        }
+
+    const planetImages = {
+            Earth: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Earth_from_Space.jpg/2048px-Earth_from_Space.jpg", 
+            Mars: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Mars_at_54_Million_Miles_from_Earth.jpg",
+            Jupiter: "https://upload.wikimedia.org/wikipedia/commons/0/04/Hubble%E2%80%99s_two_new_views_of_Jupiter_%28January_2024%2C_compass_image%29_%28heic2404e%29.jpg",
+            Venus: "https://upload.wikimedia.org/wikipedia/commons/c/c6/Venus.jpg",
+            Moon: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Moon_and_Stars_%28noao0107a%29.jpg",
+            Saturn: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Saturn_%28planet%29_large.jpg",
+            Mercury: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Mercury.jpg",
+            Uranus: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Uranus2.jpg",
+            Neptune: "https://upload.wikimedia.org/wikipedia/commons/2/20/Neptune_cutout.png",
+        };
+
+        function createMovingDots() {
+            for (let i = 0; i < 100; i++) {
+                let dot = document.createElement("div");
+                dot.classList.add("dot");
+
+                // Randomize position and animation speed
+                const randomX = Math.random() * window.innerWidth + "px";  // Random X position
+                const randomY = Math.random() * window.innerHeight + "px"; // Random Y position
+                const animationDuration = Math.random() * 2 + 2 + "s";  // Randomize animation speed (between 2s and 4s)
+
+                dot.style.setProperty('--x', randomX);
+                dot.style.setProperty('--y', randomY);
+                dot.style.animationDuration = animationDuration;
+
+                document.body.appendChild(dot);
+            }
+        }
+
+
+        function calculateWeight() {
+            
+            const mass = parseFloat(document.getElementById("mass").value);
+            const planet = document.getElementById("planet").value;
+
+                 if (isNaN(mass) || mass <= 0) {
+                alert("Please enter a valid mass!");
+                return;
+            }
+
+             const gravity = getGravitationalAcceleration(planet);
+
+            const weight = mass * gravity;
+
+            document.getElementById("output").textContent = `The weight of an object with mass ${mass} kg on ${planet} is: ${weight.toFixed(2)} N (Newtons).`;
+                
+            const planetImage=document.getElementById("planet-image")
+            planetImage.src=planetImages[planet]
+            planetImage.style.display="block"
+           
+           }
+           window.onload=createMovingDots
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> WORLD COUNTRIES LIST</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        h1{
+            text-align: center;
+            font-weight: bold;
+        }
+       
+        body{
+            text-align: center;
+            font-weight: bold;
+        }
+        .search-container{
+            margin:20px;            
+        }
+
+        #search-bar{
+            padding: 10px;
+            border-radius: 5px;
+            font-size:15px;
+        }
+
+        #search-btn{
+            padding: 15px;
+            color:white;
+            background-color: aquamarine;
+            border-radius:5px;
+            font-size: 15px;
+            cursor:pointer;
+        }
+
+        .container{
+            display: grid;
+            gap:20px;
+            grid-template-columns: repeat(6,1fr);
+        }
+
+        .country-box {
+            background-color: #8d5353;
+            padding: 20px;
+            border-radius: 8px;
+            width: 150px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px;
+        }
+    </style>
+    </head>
+    
+    <body>
+        <h1>WORLD COUNTRIES LIST</h1>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search">
+            <button id="search-btn" onclick="searchCountry()"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="container" id="country-container"></div>
+<script>
+    const countries=[
+        {name:"Afghanistan"},
+        {name:"Albania"},
+        {name:"Argentina"},
+        {name:"Autralia"},
+        {name:"Austria"},
+        {name:"Bangladesh"},
+        {name:"Belgium"},
+        {name:"Brazil"},
+        {name:"Canada"},
+        {name:"China"},
+        {name:"Cuba"},
+        {name:"Congo"},
+        {name:"Denmark"},
+        {name:"Egypt"},
+        {name:"England"},
+        {name:"Ethopia"},
+        {name:"Finland"},
+        {name:"France"},
+        {name:"Georgia"},
+        {name:"Germany"},
+        {name:"Greece"},
+        {name:"Hungary"},
+        {name:"India"},
+        {name:"Indonesia"},
+        {name:"Iraq"},
+        {name:"Iceland"},
+        {name:"Italy"},
+        {name:"Japan"},
+        {name:"Kenya"},
+        {name:"Madagascar"},
+        {name:"Malaysia"},
+        {name:"Maldives"},
+        {name:"Mexico"},
+        {name:"Nepal"},
+        {name:"New Zealand"},
+        {name:"Nigeria"},
+        {name:"Pakistan"},
+        {name:"Portugal"},
+        {name:"Russia"},
+        {name:"Saudi Arabia"},
+        {name:"Spain"},
+        {name:"Sri Lanka"},
+        {name:"Taiwan"},
+        {name:"Thailand"},
+        {name:"Ukraine"},
+        {name:"United Kingdom"},
+        {name:"United States"},
+        {name:"Vietnam"}
+    ]
+    function displayCountries(filteredCountries){
+        const countryContainer = document.getElementById('country-container');
+        countryContainer.innerHTML=''
+        
+            filteredCountries.forEach(country => {
+                const box = document.createElement('div');
+                box.classList.add('country-box');
+                box.textContent = country.name;
+                countryContainer.appendChild(box);
+            });
+        }
+        
+        displayCountries(countries)
+
+        function searchCountry() {
+            const searchValue = document.getElementById('search-bar').value;
+            const filteredCountries = countries.filter(country => country.name.includes(searchValue));
+            displayCountries(filteredCountries);
+        }
+</script>
+    </body>
+</html>

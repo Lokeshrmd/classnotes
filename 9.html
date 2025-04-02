@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Population and Languages Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .chart {
+            width: 45%;
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        .bar-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .bar {
+            background-color: #3498db;
+            height: 40px;
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+            margin-right: 10px; /* Space between bar and value */
+        }
+
+        .bar-label {
+            font-size: 16px;
+            width: 150px; /* fixed width for labels */
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .bar-value {
+            font-size: 16px;
+            color: #333;
+            margin-left: 10px;
+            width: 100px; /* fixed width for the value */
+        }
+
+        .chart-header {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Most Populated Countries and Most Spoken Languages</h1>
+
+    <div class="container">
+        <!-- Chart for Most Populated Countries -->
+        <div class="chart" id="country-chart">
+            <div class="chart-header">Most Populated Countries</div>
+        </div>
+
+        <!-- Chart for Most Spoken Languages -->
+        <div class="chart" id="language-chart">
+            <div class="chart-header">Most Spoken Languages</div>
+        </div>
+    </div>
+
+    <script>
+        // Data for countries and languages
+        const countries = [
+            { name: "China", population: 1439 },
+            { name: "India", population: 1366 },
+            { name: "USA", population: 331 },
+            { name: "Indonesia", population: 273 },
+            { name: "Pakistan", population: 225 },
+            { name: "Brazil", population: 213 },
+            { name: "Nigeria", population: 211 },
+            { name: "Bangladesh", population: 169 },
+            { name: "Russia", population: 146 },
+            { name: "Mexico", population: 126 }
+        ];
+
+        const languages = [
+            { name: "English", speakers: 1.35 },
+            { name: "Mandarin Chinese", speakers: 1.12 },
+            { name: "Hindi", speakers: 0.61 },
+            { name: "Spanish", speakers: 0.56 },
+            { name: "French", speakers: 0.274 },
+            { name: "Arabic", speakers: 0.274 },
+            { name: "Bengali", speakers: 0.273 },
+            { name: "Portuguese", speakers: 0.264 },
+            { name: "Russian", speakers: 0.255 },
+            { name: "Urdu", speakers: 0.23 }
+        ];
+
+        // Helper function to create a bar for the chart
+        function createBar(label, value, maxValue, unit) {
+            const barContainer = document.createElement('div');
+            barContainer.classList.add('bar-container');
+
+            // Create the label for the bar
+            const barLabel = document.createElement('div');
+            barLabel.classList.add('bar-label');
+            barLabel.textContent = label;
+
+            // Calculate the percentage of the max value
+            const percentage = (value / maxValue) * 100;
+
+            // Create the bar
+            const bar = document.createElement('div');
+            bar.classList.add('bar');
+            bar.style.width = `${percentage}%`;  // Set the width based on the value
+
+            // Create the value for the bar
+            const barValue = document.createElement('div');
+            barValue.classList.add('bar-value');
+            barValue.textContent = `${value}${unit}`;
+
+            // Append the label, bar, and value to the container
+            barContainer.appendChild(barLabel);
+            barContainer.appendChild(bar);
+            barContainer.appendChild(barValue);
+
+            return  barContainer;
+        }
+
+        // Function to render the country chart
+        function renderCountryChart() {
+            const countryChart = document.getElementById('country-chart');
+            const maxPopulation = Math.max(...countries.map(c => c.population));
+
+            countries.forEach(country => {
+                const bar = createBar(country.name, country.population, maxPopulation, 'M');
+                countryChart.appendChild(bar);
+            });
+        }
+
+        // Function to render the language chart
+        function renderLanguageChart() {
+            const languageChart = document.getElementById('language-chart');
+            const maxSpeakers = Math.max(...languages.map(l => l.speakers));
+
+            languages.forEach(language => {
+                const bar = createBar(language.name, language.speakers, maxSpeakers, 'B');
+                languageChart.appendChild(bar);
+            });
+        }
+
+        // Render both charts
+        renderCountryChart();
+        renderLanguageChart();
+    </script>
+
+</body>
+</html>
